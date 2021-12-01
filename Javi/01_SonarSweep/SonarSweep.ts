@@ -1,11 +1,9 @@
-let fs = require('fs');
+import * as fs from 'fs';
 
-const data: String = fs.readFileSync('SonarSweepINput.1.txt', {
+const data: string = fs.readFileSync('SonarSweepINput.txt', {
   encoding: 'utf8',
   flag: 'r',
 });
-
-const dataArr: number[] = data.split('\n').map((e) => parseInt(e));
 
 function increasingSum(data: number[]): number {
   const inc_dec: number[] = data.map((e: number, i: number) => {
@@ -23,4 +21,14 @@ function increasingSum(data: number[]): number {
   return sum;
 }
 
+const dataArr: number[] = data.split('\n').map((e: string) => parseInt(e));
+const dataArr2: number[] = dataArr.map((e: number, i: number) => {
+  if (i > dataArr.length - 3) {
+    return 0;
+  } else {
+    return e + dataArr[i + 1] + dataArr[i + 2];
+  }
+});
+
 console.log(increasingSum(dataArr));
+console.log(increasingSum(dataArr2));
