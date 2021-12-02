@@ -1,9 +1,13 @@
+import * as path from 'path';
 import * as fs from 'fs';
 
-const data: string = fs.readFileSync('SonarSweepINput.txt', {
-  encoding: 'utf8',
-  flag: 'r',
-});
+const data: string = fs.readFileSync(
+  path.resolve(__dirname, '..Inputs/01_SonarSweep.txt'),
+  {
+    encoding: 'utf8',
+    flag: 'r',
+  }
+);
 
 function increasingSum(data: number[]): number {
   const inc_dec: number[] = data.map((e: number, i: number) => {
