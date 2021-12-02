@@ -17,7 +17,7 @@ interface Movement {
 interface Position {
   horizontal: number;
   depth: number;
-  aim?: number;
+  aim: number;
 }
 
 const dataArr: Movement[] = data.split('\n').map((e: string) => {
@@ -29,12 +29,7 @@ const dataArr: Movement[] = data.split('\n').map((e: string) => {
   return movement;
 });
 
-let startPositionOne: Position = {
-  horizontal: 0,
-  depth: 0,
-};
-
-let startPositionTwo: Position = {
+let startPosition: Position = {
   horizontal: 0,
   depth: 0,
   aim: 0,
@@ -44,7 +39,7 @@ function getFinalPosition(
   startingPosition: Position,
   data: Movement[]
 ): Position {
-  let newPosition = startingPosition;
+  let newPosition: Position = { ...startingPosition };
 
   data.forEach((e: Movement) => {
     switch (e.direction) {
@@ -69,7 +64,7 @@ function getFinalPositionWithAim(
   startPosition: Position,
   dataArr: Movement[]
 ): Position {
-  let newPosition: Position = startPosition;
+  let newPosition: Position = { ...startPosition };
   dataArr.forEach((e: Movement) => {
     switch (e.direction) {
       case 'forward':
@@ -90,9 +85,9 @@ function getFinalPositionWithAim(
   return newPosition;
 }
 
-const finalPositionOne: Position = getFinalPosition(startPositionOne, dataArr);
+const finalPositionOne: Position = getFinalPosition(startPosition, dataArr);
 const finalPositionTwo: Position = getFinalPositionWithAim(
-  startPositionTwo,
+  startPosition,
   dataArr
 );
 
@@ -101,4 +96,3 @@ const answerTwo: number = finalPositionTwo.depth * finalPositionTwo.horizontal;
 
 console.log(`Answer one is ${answerOne}`);
 console.log(`Answer two is ${answerTwo}`);
-console.log(49 - 22);
