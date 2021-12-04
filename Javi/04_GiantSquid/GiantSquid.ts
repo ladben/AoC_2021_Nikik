@@ -1,6 +1,5 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import { endianness } from 'os';
 
 const data: string = fs.readFileSync(
   path.resolve(__dirname, '../Inputs/04_GiantSquid.txt'),
@@ -8,6 +7,11 @@ const data: string = fs.readFileSync(
 );
 
 const dataStringArr: string[] = data.split('\n\n');
+
+interface TableWonInfo {
+  table: number[][];
+  score: number;
+}
 
 function checkTableForWin(table: number[][]): boolean {
   let won: boolean = false;
@@ -53,7 +57,7 @@ function replaceNumInTable(
   return table;
 }
 
-function getScoreOfTableWon(tables: number[][][]): number {
+function getInfoOfTableWon(tables: number[][][]): TableWonInfo {
   let tableWon: number[][] = undefined;
   let score: number = undefined;
 
@@ -72,7 +76,10 @@ function getScoreOfTableWon(tables: number[][][]): number {
     }
   }
 
-  return score;
+  return {
+    table: tableWon,
+    score,
+  };
 }
 
 function calculateScore(table: number[][]): number {
@@ -82,6 +89,22 @@ function calculateScore(table: number[][]): number {
   });
 
   return sumOfRows.reduce((acc: number, curr: number) => acc + curr);
+}
+
+function reduceTables(tables: number[][][]): number[][][] {
+  const infoOfTableWon: TableWonInfo = getInfoOfTableWon(tables);
+  const indexOfTableWon: number = tables.indexOf(infoOfTableWon.table);
+  const reducedTable: number[][][] = tables.filter(
+    (e: number[][], i: number) => {
+      return i !== indexOfTableWon;
+    }
+  );
+
+  if (reducedTable.length === 1) {
+    return reducedTable;
+  } else {
+    return reduceTables(reducedTable);
+  }
 }
 
 const numbersDrawnNumArr: number[] = dataStringArr
@@ -107,4 +130,10 @@ const tables: number[][][] = tablesStr.map((e: string[][]) => {
   });
 });
 
-console.log(getScoreOfTableWon(tables));
+const infoOfTableWon: TableWonInfo = getInfoOfTableWon(tables);
+
+console.log('\n-------------------- ANSWERS --------------------\n');
+console.log('Answer one:');
+console.log(infoOfTableWon.score);
+console.log('\nAnswer two:');
+console.log(getInfoOfTableWon(reduceTables(tables)).score);
