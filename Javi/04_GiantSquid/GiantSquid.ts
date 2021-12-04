@@ -132,7 +132,7 @@ const tables: number[][][] = tablesStr.map((e: string[][]) => {
 
 const infoOfTableWon: TableWonInfo = getInfoOfTableWon(tables);
 
-console.log('\n-------------------- ANSWERS --------------------\n');
+console.log('\n--------------------- ANSWERS ---------------------\n');
 console.log('Answer one:');
 console.log(infoOfTableWon.score);
 console.log('\nAnswer two:');
