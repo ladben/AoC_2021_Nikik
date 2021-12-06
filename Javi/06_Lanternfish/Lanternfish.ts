@@ -28,7 +28,9 @@ class lanternfish {
   }
 }
 
-let fishes: lanternfish[] = dataNumArr.map((e: number) => new lanternfish(e));
+let initialFishes: lanternfish[] = dataNumArr.map(
+  (e: number) => new lanternfish(e)
+);
 
 function passOneDay(fishes: lanternfish[]): lanternfish[] {
   let newFishesArr: lanternfish[] = [...fishes];
@@ -41,8 +43,17 @@ function passOneDay(fishes: lanternfish[]): lanternfish[] {
   return [...newFishesArr, ...newBornFishesArr];
 }
 
-for (let i: number = 0; i < 80; i++) {
-  fishes = passOneDay(fishes);
+function getFishPopulation(
+  dayPassed: number,
+  initalFishes: lanternfish[]
+): number {
+  let fishes: lanternfish[] = [...initalFishes];
+
+  for (let i: number = 0; i < dayPassed; i++) {
+    fishes = passOneDay(fishes);
+  }
+
+  return fishes.length;
 }
 
-console.log(fishes.length);
+console.log(getFishPopulation(80, initialFishes));
