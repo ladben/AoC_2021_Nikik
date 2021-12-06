@@ -1,6 +1,8 @@
 import * as path from 'path';
 import * as fs from 'fs';
 
+const numberOfDays: number = 80;
+
 const data: string = fs.readFileSync(
   path.resolve(__dirname, '../Inputs/06_Lanternfish.txt'),
   { encoding: 'utf8', flag: 'r' }
@@ -56,4 +58,4 @@ function getFishPopulation(
   return fishes.length;
 }
 
-console.log(getFishPopulation(80, initialFishes));
+console.log(getFishPopulation(numberOfDays, initialFishes));

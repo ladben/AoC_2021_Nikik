@@ -1,6 +1,8 @@
 import * as path from 'path';
 import * as fs from 'fs';
 
+const numberOfDays: number = 256;
+
 const data: string = fs.readFileSync(
   path.resolve(__dirname, '../Inputs/06_Lanternfish.txt'),
   { encoding: 'utf8', flag: 'r' }
@@ -14,7 +16,7 @@ dataNumArr.forEach((e: number) => {
   population[e]++;
 });
 
-for (let i: number = 1; i <= 256; i++) {
+for (let i: number = 1; i <= numberOfDays; i++) {
   population = population.map((e: number, j: number) => {
     if (j < 6 || j === 7) {
       return population[j + 1];

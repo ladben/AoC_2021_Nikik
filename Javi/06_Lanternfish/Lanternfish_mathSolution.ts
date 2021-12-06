@@ -1,6 +1,8 @@
 import * as path from 'path';
 import * as fs from 'fs';
 
+const numberOfDays: number = 80;
+
 const data: string = fs.readFileSync(
   path.resolve(__dirname, '../Inputs/06_Lanternfish.txt'),
   { encoding: 'utf8', flag: 'r' }
@@ -35,7 +37,7 @@ class fish {
 
 let fishArr: fish[] = dataNumArr.map((e: number) => new fish(e, true));
 
-for (let i: number = 1; i <= 256; i++) {
+for (let i: number = 1; i <= numberOfDays; i++) {
   let newlySpawnFishArr: fish[] = [];
   fishArr.forEach((e: fish) => {
     if (e.shouldReproduceToday(i)) {
